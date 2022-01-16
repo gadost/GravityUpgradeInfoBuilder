@@ -18,12 +18,14 @@ var binariesMap = map[string]string{
 }
 
 func init() {
-    flag.StringVar(&releaseTag, "tag", "latest", "release tag e.g v1.3.0")
+    flag.StringVar(&releaseTag, "tag", "", "release tag \ne.g  -tag v1.3.0")
 }
 
 func main() {
     flag.Parse()
-
+    if releaseTag == "" {
+        panic("please specify -tag <release tag>")
+    }
     var binaryDownloadUrl = fmt.Sprintf("https://github.com/Gravity-Bridge/Gravity-Bridge/releases/download/%s/", releaseTag)
     var binary = map[string]string{}
     for k, v := range binariesMap {
