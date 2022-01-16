@@ -10,6 +10,12 @@ import (
 )
 
 var releaseTag string
+var binariesMap = map[string]string{
+    "linux/amd64":   "gravity-linux-amd64",
+    "darwin/amd64":  "gravity-darwin-amd64",
+    "linux/arm64":   "gravity-linux-arm64",
+    "windows/amd64": "gravity-windows-amd64.exe",
+}
 
 func init() {
     flag.StringVar(&releaseTag, "tag", "latest", "release tag e.g v1.3.0")
@@ -18,7 +24,6 @@ func init() {
 func main() {
     flag.Parse()
 
-    var binariesMap = map[string]string{"linux/amd64": "gravity-linux-amd64", "darwin/amd64": "gravity-darwin-amd64", "linux/arm64": "gravity-linux-arm64", "windows/amd64": "gravity-windows-amd64.exe"}
     var binariesDownloadUrl = fmt.Sprintf("https://github.com/Gravity-Bridge/Gravity-Bridge/releases/download/%s/", releaseTag)
     var binary = map[string]string{}
     for k, v := range binariesMap {
