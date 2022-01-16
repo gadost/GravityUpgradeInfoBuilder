@@ -24,10 +24,10 @@ func init() {
 func main() {
     flag.Parse()
 
-    var binariesDownloadUrl = fmt.Sprintf("https://github.com/Gravity-Bridge/Gravity-Bridge/releases/download/%s/", releaseTag)
+    var binaryDownloadUrl = fmt.Sprintf("https://github.com/Gravity-Bridge/Gravity-Bridge/releases/download/%s/", releaseTag)
     var binary = map[string]string{}
     for k, v := range binariesMap {
-        binary[k] = binariesDownloadUrl + v + "?checksum=sha256:" + getSHA256(getFile(binariesDownloadUrl+v))
+        binary[k] = binaryDownloadUrl + v + "?checksum=sha256:" + getSHA256(getFile(binaryDownloadUrl+v))
     }
 
     buildJSON(binary)
@@ -39,7 +39,7 @@ func getFile(s string) []byte {
         panic(err)
     }
     if resp.StatusCode != 200 {
-        panic(fmt.Sprintf("Release Not Fount %e", err))
+        panic(fmt.Sprintf("Release Not Found"))
     }
     defer resp.Body.Close()
     bodyBytes, _ := io.ReadAll(resp.Body)
