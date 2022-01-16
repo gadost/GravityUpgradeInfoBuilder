@@ -22,7 +22,6 @@ func main() {
     var binariesDownloadUrl = fmt.Sprintf("https://github.com/Gravity-Bridge/Gravity-Bridge/releases/download/%s/", releaseTag)
     var binary = map[string]string{}
     for k, v := range binariesMap {
-        //fmt.Printf("%s %s\n", binariesDownloadUrl+v, getSHA256(getFile(binariesDownloadUrl+v)))
         binary[k] = binariesDownloadUrl + v + "?checksum=sha256:" + getSHA256(getFile(binariesDownloadUrl+v))
     }
 
