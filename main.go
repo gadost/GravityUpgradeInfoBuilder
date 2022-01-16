@@ -24,8 +24,8 @@ var binariesMap = map[string]string{
 func init() {
     flag.StringVar(&releaseTag, "tag", "", "release tag \ne.g  -tag v1.3.0")
     flag.Int64Var(&currentHeight, "current-height", 0, "current height e.g. 400001")
-    flag.Int64Var(&blockTime, "blocktime", 6300, "current block time in ms e.g. 6300")
-    flag.StringVar(&apxDate, "date", "", "date&time for update e.g. 18 Jan 22 16:00 UTC   (RFC822)")
+    flag.Int64Var(&blockTime, "block-time", 6300, "current block time in ms e.g. 6300")
+    flag.StringVar(&apxDate, "upgrade-date", "", "date&time for update e.g. 18 Jan 22 16:00 UTC   (RFC822)")
 }
 
 func main() {
@@ -34,7 +34,7 @@ func main() {
         tsX := parseDate(apxDate).UnixMilli()
         tsN := time.Now().UTC().UnixMilli()
         blockX := (tsX-tsN)/(blockTime) + currentHeight
-        fmt.Printf("at %s ~ calculated height %d\n", apxDate, blockX)
+        fmt.Printf("%s ~ calculated height %d\n", apxDate, blockX)
     }
     if len(releaseTag) > 0 {
         var binaryDownloadUrl = fmt.Sprintf("https://github.com/Gravity-Bridge/Gravity-Bridge/releases/download/%s/", releaseTag)
@@ -68,7 +68,6 @@ func buildJSON(s map[string]string) {
     x := map[string]interface{}{"binaries": s}
     res, _ := json.Marshal(x)
     fmt.Println(string(res))
-
 }
 
 func parseDate(s string) time.Time {
