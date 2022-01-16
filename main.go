@@ -30,7 +30,7 @@ func init() {
 
 func main() {
     flag.Parse()
-    if currentHeight != 0 && blockTime != 0 && apxDate != "" {
+    if currentHeight != 0 && blockTime != 0 && len(apxDate) > 0 {
         tsX := parseDate(apxDate).UnixMilli()
         tsN := time.Now().UTC().UnixMilli()
         blockX := (tsX-tsN)/(blockTime) + currentHeight
